@@ -12,3 +12,4 @@
 
 DapperExample dapperExample = new DapperExample();
 dapperExample.Run();
+Console.ReadKey();

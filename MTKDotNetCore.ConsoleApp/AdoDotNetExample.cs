@@ -48,7 +48,7 @@ namespace MTKDotNetCore.ConsoleApp
             }
         }
 
-#endregion
+        #endregion
 
         #region Edit
 
@@ -79,7 +79,7 @@ namespace MTKDotNetCore.ConsoleApp
             Console.WriteLine("BlogContent => " + dr["BlogContent"]);
             Console.WriteLine("---------------------------------------");
         }
-#endregion
+        #endregion
 
         #region Create
 
@@ -107,7 +107,7 @@ namespace MTKDotNetCore.ConsoleApp
             Console.WriteLine(message);
         }
 
-#endregion
+        #endregion
 
         #region Update
 
@@ -133,7 +133,7 @@ namespace MTKDotNetCore.ConsoleApp
             Console.WriteLine(message);
         }
 
-#endregion
+        #endregion
 
         #region Delete
 
