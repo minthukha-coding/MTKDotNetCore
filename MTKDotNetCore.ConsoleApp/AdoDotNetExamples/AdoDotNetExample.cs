@@ -10,9 +10,18 @@ namespace MTKDotNetCore.ConsoleApp.AdoDotNetExamples
 {
     public class AdoDotNetExample
     {
+        #region Run
+
+        public void Run()
+        {
+            Read();
+        }
+
+        #endregion
+
         #region Connection
 
-        public readonly SqlConnectionStringBuilder _stringBuilder = new SqlConnectionStringBuilder()
+        private readonly SqlConnectionStringBuilder _stringBuilder = new SqlConnectionStringBuilder()
         {
             DataSource = ".",
             InitialCatalog = "MTKDotNetCore",
@@ -25,7 +34,7 @@ namespace MTKDotNetCore.ConsoleApp.AdoDotNetExamples
 
         #region Read
 
-        public void Read()
+        private void Read()
         {
             SqlConnection connection = new SqlConnection(_stringBuilder.ConnectionString);
             connection.Open();
@@ -52,7 +61,7 @@ namespace MTKDotNetCore.ConsoleApp.AdoDotNetExamples
 
         #region Edit
 
-        public void Edit(int id)
+        private void Edit(int id)
         {
             SqlConnection connection = new SqlConnection(_stringBuilder.ConnectionString);
             connection.Open();
@@ -83,7 +92,7 @@ namespace MTKDotNetCore.ConsoleApp.AdoDotNetExamples
 
         #region Create
 
-        public void Create(string title, string author, string content)
+        private void Create(string title, string author, string content)
         {
             SqlConnection connection = new SqlConnection(_stringBuilder.ConnectionString);
             connection.Open();
@@ -111,7 +120,7 @@ namespace MTKDotNetCore.ConsoleApp.AdoDotNetExamples
 
         #region Update
 
-        public void Update(int id, string title, string author, string content)
+        private void Update(int id, string title, string author, string content)
         {
             SqlConnection connection = new SqlConnection(_stringBuilder.ConnectionString);
             connection.Open();
@@ -137,7 +146,7 @@ namespace MTKDotNetCore.ConsoleApp.AdoDotNetExamples
 
         #region Delete
 
-        public void Delete(int id)
+        private void Delete(int id)
         {
             SqlConnection connection = new SqlConnection(_stringBuilder.ConnectionString);
             connection.Open();
