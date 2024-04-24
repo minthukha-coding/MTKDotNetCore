@@ -16,8 +16,9 @@ namespace MTKDotNetCore.ConsoleApp.EfCoreExamples
         {
             //Create("H1N1", "H@N2", "H@21q");
             //Read();
-            Update(3, "GOGO", "GOGO", "GOGO");
-            Edit(3);
+            //Update(3, "GOGO", "GOGO", "GOGO");
+            //Edit(3);
+            Delete(3);
         }
         private void Read()
         {
@@ -71,6 +72,19 @@ namespace MTKDotNetCore.ConsoleApp.EfCoreExamples
 
             int result = db.SaveChanges();
             string message = result > 0 ? "Blog Update Successful" : "Blog Update Fail";
+            Console.WriteLine(message);
+        }
+        private void Delete(int id)
+        {
+            var item = db.Blogs.FirstOrDefault(x => x.BlogId ==id);
+            if(item is null)
+            {
+                Console.WriteLine("Blog was not found");
+                return;
+            }
+            db.Blogs.Remove(item);
+            int result = db.SaveChanges();
+            string message = result > 0 ? "Blog Delete Successful" : "Blog Delete Fail";
             Console.WriteLine(message);
         }
     }
