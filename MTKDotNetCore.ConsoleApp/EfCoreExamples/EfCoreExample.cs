@@ -20,6 +20,9 @@ namespace MTKDotNetCore.ConsoleApp.EfCoreExamples
             //Edit(3);
             Delete(3);
         }
+
+        #region Read
+
         private void Read()
         {
             var lst = db.Blogs.ToList();
@@ -32,6 +35,11 @@ namespace MTKDotNetCore.ConsoleApp.EfCoreExamples
                 Console.WriteLine("-----------------------");
             }
         }
+
+        #endregion
+
+        #region Edit
+
         private void Edit(int id)
         {
             var item = db.Blogs.FirstOrDefault(x => x.BlogId == id);
@@ -46,6 +54,11 @@ namespace MTKDotNetCore.ConsoleApp.EfCoreExamples
             Console.WriteLine(item.BlogContent);
             Console.WriteLine("-----------------------");
         }
+
+        #endregion
+
+        #region Create
+
         private void Create(string title,string author,string content)
         {
             var item = new BlogDto
@@ -58,7 +71,12 @@ namespace MTKDotNetCore.ConsoleApp.EfCoreExamples
             int result = db.SaveChanges();
             string message = result > 0 ? "New Blog Creation Successful" : "New Blog Creation Fail";
             Console.WriteLine(message);
-        }      
+        }
+
+        #endregion
+
+        #region Update
+
         private void Update(int id,string title,string author,string content)
         {
             var item = db.Blogs.FirstOrDefault(x => x.BlogId == id);
@@ -74,6 +92,11 @@ namespace MTKDotNetCore.ConsoleApp.EfCoreExamples
             string message = result > 0 ? "Blog Update Successful" : "Blog Update Fail";
             Console.WriteLine(message);
         }
+
+        #endregion
+
+        #region Delete
+
         private void Delete(int id)
         {
             var item = db.Blogs.FirstOrDefault(x => x.BlogId ==id);
@@ -87,5 +110,7 @@ namespace MTKDotNetCore.ConsoleApp.EfCoreExamples
             string message = result > 0 ? "Blog Delete Successful" : "Blog Delete Fail";
             Console.WriteLine(message);
         }
+
+        #endregion
     }
 }
