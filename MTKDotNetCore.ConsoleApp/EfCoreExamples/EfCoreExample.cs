@@ -60,14 +60,14 @@ namespace MTKDotNetCore.ConsoleApp.EfCoreExamples
         }      
         private void Update(int id,string title,string author,string content)
         {
-            var updateblog = db.Blogs.AsNoTracking().FirstOrDefault(x => x.BlogId == id);
-            if (updateblog is null) {
+            var item = db.Blogs.FirstOrDefault(x => x.BlogId == id);
+            if (item is null) {
                 Console.WriteLine("Blog Was Not Found");
             }
 
-            updateblog.BlogTitle = title;
-            updateblog.BlogAuthor = author;
-            updateblog.BlogContent = content;
+            item.BlogTitle = title;
+            item.BlogAuthor = author;
+            item.BlogContent = content;
 
             int result = db.SaveChanges();
             string message = result > 0 ? "Blog Update Successful" : "Blog Update Fail";
