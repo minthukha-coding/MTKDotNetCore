@@ -11,7 +11,7 @@ namespace MTKDotNetCore.ConsoleApp.EfCoreExamples
     {
         public void Run()
         {
-
+            Read();
         }
         private void Read()
         {
