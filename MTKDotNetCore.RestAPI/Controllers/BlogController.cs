@@ -1,6 +1,18 @@
-﻿namespace MTKDotNetCore.RestAPI.Controllers
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
+using MTKDotNetCore.ConsoleApp.EfCoreExamples;
+
+namespace MTKDotNetCore.RestAPI.Controllers
 {
-    public class BlogController
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BlogController :ControllerBase
     {
+        private readonly AppDbContext _appDbContext;
+
+        public BlogController(AppDbContext appDbContext)
+        {
+            _appDbContext = appDbContext;
+        }
     }
 }
