@@ -9,13 +9,13 @@ namespace MTKDotNetCore.ConsoleApp.EfCoreExamples
 {
     public class EfCoreExample
     {
+        private readonly AppDbContext db = new AppDbContext();
         public void Run()
         {
             Read();
         }
         private void Read()
         {
-            AppDbContext db = new AppDbContext();
             var lst = db.Blogs.ToList();
             foreach (BlogDto item in lst)
             {
@@ -25,6 +25,20 @@ namespace MTKDotNetCore.ConsoleApp.EfCoreExamples
                 Console.WriteLine(item.BlogContent);
                 Console.WriteLine("-----------------------");
             }
+        }
+        private void Edit(int id)
+        {
+            var item = db.Blogs.FirstOrDefault(x => x.BlogId == id);
+            if(item is null)
+            {
+                Console.WriteLine("No data not found");
+                return;
+            }
+            Console.WriteLine(item.BlogId);
+            Console.WriteLine(item.BlogTitle);
+            Console.WriteLine(item.BlogAuthor);
+            Console.WriteLine(item.BlogContent);
+            Console.WriteLine("-----------------------");
         }
     }
 }

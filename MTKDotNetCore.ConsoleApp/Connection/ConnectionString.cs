@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MTKDotNetCore.ConsoleApp
+namespace MTKDotNetCore.ConsoleApp.Connection
 {
     internal class ConnectionString
     {
