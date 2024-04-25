@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MTKDotNetCore.ConsoleApp.Modles;
+namespace MTKDotNetCore.RestAPI.Models;
 
 [Table("Tbl_Blog")]
 public class BlogModel

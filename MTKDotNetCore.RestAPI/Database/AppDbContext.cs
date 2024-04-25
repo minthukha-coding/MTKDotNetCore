@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MTKDotNetCore.ConsoleApp.Connection;
-using MTKDotNetCore.ConsoleApp.Modles;
+using MTKDotNetCore.RestAPI.Models;
+using MTKDotNetCore.RestAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;

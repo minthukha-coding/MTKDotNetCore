@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MTKDotNetCore.ConsoleApp.Modles;
 using MTKDotNetCore.RestAPI.Database;
+using MTKDotNetCore.RestAPI.Models;
 
 namespace MTKDotNetCore.RestAPI.Controllers
 {
