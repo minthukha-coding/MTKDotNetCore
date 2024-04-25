@@ -1,5 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
-namespace MTKDotNetCore.RestAPI.Services
+namespace MTKDotNetCore.RestAPI
 {
     public class ConnectionString
     {

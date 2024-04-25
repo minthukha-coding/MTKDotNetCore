@@ -11,9 +11,9 @@ namespace MTKDotNetCore.RestAPI.Controllers
     {
         private readonly AppDbContext _appDbContext;
 
-        public BlogController(AppDbContext appDbContext)
+        public BlogController()
         {
-            _appDbContext = appDbContext;
+            _appDbContext = new AppDbContext();
         }
 
         [HttpGet]

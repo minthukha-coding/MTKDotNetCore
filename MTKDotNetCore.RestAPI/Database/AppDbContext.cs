@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MTKDotNetCore.RestAPI.Models;
-using MTKDotNetCore.RestAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MTKDotNetCore.RestAPI.Database
 {
-    public class AppDbContext : DbContext
+    internal class AppDbContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
