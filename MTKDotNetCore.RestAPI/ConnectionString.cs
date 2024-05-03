@@ -1,7 +1,9 @@
-﻿using Microsoft.Data.SqlClient;
+﻿
+using System.Data.SqlClient;
+
 namespace MTKDotNetCore.RestAPI
 {
-    public class ConnectionString
+    public static class ConnectionString
     {
         public static SqlConnectionStringBuilder SqlConnectionStringBuilder = new SqlConnectionStringBuilder()
         {
