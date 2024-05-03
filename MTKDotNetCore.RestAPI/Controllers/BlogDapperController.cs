@@ -65,11 +65,67 @@ namespace MTKDotNetCore.RestAPI.Controllers
                               ,[BlogContent] = @BlogContent
                          WHERE BlogId = @BlogId";
             using IDbConnection db = new SqlConnection(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
-            int result = db.Execute(query, blog);
+            int result = db.Execute(query, model);
 
             string message = result > 0 ? "Updating Successful." : "Updating Failed.";
             return Ok(message);
         }
+
+        [HttpPatch("{id}")]
+        public IActionResult PatchBlog(int id, BlogModel model)
+        {
+            var item = FindByID(id);
+            if (item is null)
+            {
+                return NotFound("No data found.");
+            }
+
+            string conditions = string.Empty;
+
+            if (!string.IsNullOrEmpty(model.BlogTitle))
+            {
+                conditions += " [BlogTitle] = @BlogTitle, ";
+            }
+            if (!string.IsNullOrEmpty(model.BlogAuthor))
+            {
+                conditions += " [BlogAuthor] = @BlogAuthor, ";
+            }
+            if (!string.IsNullOrEmpty(model.BlogContent))
+            {
+                conditions += " [BlogContent] = @BlogContent, ";
+            }
+
+            conditions = conditions.Substring(0, conditions.Length - 2);
+            model.BlogId = id;
+
+            string query = $@"UPDATE [dbo].[Tbl_Blog]
+                           SET {conditions}
+                         WHERE BlogId = @BlogId";
+
+            using IDbConnection db = new SqlConnection(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
+            int result = db.Execute(query, model);
+
+            string message = result > 0 ? "Updating Successful." : "Updating Failed.";
+            return Ok(message);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBlog(int id)
+        {
+            var item = FindByID(id);
+            if (item is null)
+            {
+                return NotFound("No data found.");
+            }
+
+            string query = @"Delete From [dbo].[Tbl_Blog] WHERE BlogId = @BlogId";
+            using IDbConnection db = new SqlConnection(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
+            int result = db.Execute(query, new BlogModel { BlogId = id });
+
+            string message = result > 0 ? "Deleting Successful." : "Deleting Failed.";
+            return Ok(message);
+        }
+
 
         private BlogModel? FindByID(int id)
         {
