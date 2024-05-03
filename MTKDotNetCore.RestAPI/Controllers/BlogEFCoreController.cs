@@ -7,11 +7,11 @@ namespace MTKDotNetCore.RestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogController : ControllerBase
+    public class BlogEFCoreController : ControllerBase
     {
         private readonly AppDbContext _appDbContext;
 
-        public BlogController()
+        public BlogEFCoreController()
         {
             _appDbContext = new AppDbContext();
         }
