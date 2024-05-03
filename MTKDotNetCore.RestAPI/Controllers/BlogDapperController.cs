@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using MTKDotNetCore.RestAPI.Models;
 using System.Data;
 using System.Data.SqlClient;
+using System.Reflection.Metadata;
 
 namespace MTKDotNetCore.RestAPI.Controllers
 {
@@ -48,11 +49,33 @@ namespace MTKDotNetCore.RestAPI.Controllers
             return Ok(message);
         }
 
+        [HttpPut("{id}")]
+        public IActionResult UpdateBlog(int id, BlogModel model)
+        {
+            var item = FindByID(id);
+            if (item == null)
+            {
+                return BadRequest("NO Blog");
+            }
+            model.BlogId = id;
+
+            string query = @"UPDATE [dbo].[Tbl_Blog]
+                           SET [BlogTitle] = @BlogTitle
+                              ,[BlogAuthor] = @BlogAuthor
+                              ,[BlogContent] = @BlogContent
+                         WHERE BlogId = @BlogId";
+            using IDbConnection db = new SqlConnection(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
+            int result = db.Execute(query, blog);
+
+            string message = result > 0 ? "Updating Successful." : "Updating Failed.";
+            return Ok(message);
+        }
+
         private BlogModel? FindByID(int id)
         {
             string query = "select * from tbl_blog where blogid = @BlogId";
             using IDbConnection db = new SqlConnection(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
-            var item = db.Query<BlogModel>(query,new BlogModel { BlogId = id }).FirstOrDefault();
+            var item = db.Query<BlogModel>(query, new BlogModel { BlogId = id }).FirstOrDefault();
             return item;
         }
     }
