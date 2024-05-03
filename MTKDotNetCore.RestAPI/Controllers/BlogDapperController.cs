@@ -30,6 +30,24 @@ namespace MTKDotNetCore.RestAPI.Controllers
             return Ok(item);
         }
 
+        [HttpPost]
+        public IActionResult CreateBlog(BlogModel model)
+        {
+            string query = @"INSERT INTO [dbo].[Tbl_Blog]
+                           ([BlogTitle]
+                           ,[BlogAuthor]
+                           ,[BlogContent])
+                     VALUES
+                           (@BlogTitle
+                           ,@BlogAuthor       
+                           ,@BlogContent)";
+            using IDbConnection db = new SqlConnection(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
+            int result = db.Execute(query, model);
+
+            string message = result > 0 ? "Saving Successful." : "Saving Failed.";
+            return Ok(message);
+        }
+
         private BlogModel? FindByID(int id)
         {
             string query = "select * from tbl_blog where blogid = @BlogId";
