@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MTKDotNetCore.RestAPI.Models;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace MTKDotNetCore.RestAPI.Controllers
 {
@@ -6,6 +9,27 @@ namespace MTKDotNetCore.RestAPI.Controllers
     [ApiController]
     public class BlogAdoDotNetController : ControllerBase
     {
+        [HttpGet]
+        public IActionResult Get()
+        {
+            string query = "select * from Tbl_Blog";
+            SqlConnection connection = new SqlConnection(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
+            connection.Open();  
+            SqlCommand command = new SqlCommand(query, connection);
+            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
+            DataTable dt = new DataTable();
+            sqlDataAdapter.Fill(dt);
+            connection.Close();
 
+            List<BlogModel> lst = dt.AsEnumerable().Select(dr => new BlogModel
+            {
+                BlogId = Convert.ToInt32(dr["BlogId"]),
+                BlogTitle = Convert.ToString(dr["BlogTitle"]),
+                BlogAuthor = Convert.ToString(dr["BlogAuthor"]),
+                BlogContent = Convert.ToString(dr["BlogContent"])
+            }).ToList();
+
+            return Ok(lst);
+        }
     }
 }
