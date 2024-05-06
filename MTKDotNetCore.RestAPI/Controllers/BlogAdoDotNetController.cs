@@ -58,5 +58,29 @@ namespace MTKDotNetCore.RestAPI.Controllers
             };
             return Ok();
         }
+
+        [HttpPost]
+        public IActionResult Create(BlogModel model)
+        {
+            string query = @"INSERT INTO [dbo].[Tbl_Blog]
+                           ([BlogTitle]
+                           ,[BlogAuthor]
+                           ,[BlogContent])
+                     VALUES
+                           (@BlogTitle
+                           ,@BlogAuthor       
+                           ,@BlogContent)";
+            SqlConnection connection = new SqlConnection(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
+            connection.Open();
+            SqlCommand cmd = new SqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@BlogTitle", model.BlogTitle);
+            cmd.Parameters.AddWithValue("@BlogAuthor", model.BlogAuthor);
+            cmd.Parameters.AddWithValue("@BlogContent", model.BlogContent);
+            int result = cmd.ExecuteNonQuery();
+            connection.Close ();
+            string message = result > 0 ? "Create Successful." : "Create Failed.";
+            //return StatusCode(500, message);
+            return Ok(message);
+        }
     }
 }
