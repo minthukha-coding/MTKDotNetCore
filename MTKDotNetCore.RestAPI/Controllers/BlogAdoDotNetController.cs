@@ -78,13 +78,13 @@ namespace MTKDotNetCore.RestAPI.Controllers
             cmd.Parameters.AddWithValue("@BlogAuthor", model.BlogAuthor);
             cmd.Parameters.AddWithValue("@BlogContent", model.BlogContent);
             int result = cmd.ExecuteNonQuery();
-            connection.Close ();
+            connection.Close();
             string message = result > 0 ? "Create Successful." : "Create Failed.";
             //return StatusCode(500, message);
             return Ok(message);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public IActionResult PutBlogUpdate(int id, BlogModel model)
         {
             string getQuery = "SELECT COUNT(*) FROM Tbl_Blog  WHERE BlogId = @BlogId";
@@ -94,23 +94,47 @@ namespace MTKDotNetCore.RestAPI.Controllers
             checkBlogCMD.Parameters.AddWithValue("@BlogId", id);
             var count = (int)checkBlogCMD.ExecuteScalar();
             if (count == 0) return NotFound("No Blog");
-            
+
             string updateQuery = @"UPDATE [dbo].[Tbl_Blog]
                                    SET [BlogTitle] = @BlogTitle,
                                        [BlogAuthor] = @BlogAuthor,
                                        [BlogContent] = @BlogContent
                                    WHERE BlogId = @BlogId";
-            
+
             SqlCommand cmd = new SqlCommand(updateQuery, connection);
-            
+
             cmd.Parameters.AddWithValue("@BlogId", id);
             cmd.Parameters.AddWithValue("@BlogTitle", model.BlogTitle);
             cmd.Parameters.AddWithValue("@BlogAuthor", model.BlogAuthor);
             cmd.Parameters.AddWithValue("@BlogContent", model.BlogContent);
             int result = cmd.ExecuteNonQuery();
-            
+
             connection.Close();
             string message = result > 0 ? "Update Blog success" : "Update Blog Fail";
+            return Ok(message);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteBlog(int id)
+        {
+            string getQuery = "SELECT COUNT(*) FROM Tbl_Blog  WHERE BlogId = @BlogId";
+            SqlConnection connection = new SqlConnection(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
+            connection.Open();
+            SqlCommand checkBlogCMD = new SqlCommand(getQuery, connection);
+            checkBlogCMD.Parameters.AddWithValue("@BlogId", id);
+            var count = (int)checkBlogCMD.ExecuteScalar();
+            if (count == 0) return NotFound("No Blog");
+
+            string query = @"DELETE FROM [dbo].[Tbl_Blog]
+                               WHERE BlogId = @BlogId";
+
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@BlogId", id);
+
+            int result = command.ExecuteNonQuery();
+            connection.Close();
+
+            string message = result > 0 ? "Deleting Successful." : "Deleting Failed.";
             return Ok(message);
         }
     }
