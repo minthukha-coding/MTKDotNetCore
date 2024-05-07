@@ -2,6 +2,7 @@
 using MTKDotNetCore.RestAPI.Models;
 using System.Data;
 using System.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace MTKDotNetCore.RestAPI.Controllers
 {
@@ -35,11 +36,11 @@ namespace MTKDotNetCore.RestAPI.Controllers
         [HttpGet("{id}")]
         public IActionResult GetByID(int id)
         {
-            string query = "select * from Tbl_Blog where Blog_Id = @Blog_Id";
+            string query = "select * from Tbl_Blog where BlogId = @Blog_Id";
             SqlConnection connection = new SqlConnection(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@BlogId", id);
+            command.Parameters.AddWithValue("@Blog_Id", id);
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
             DataTable dt = new DataTable();
             sqlDataAdapter.Fill(dt);
@@ -56,7 +57,7 @@ namespace MTKDotNetCore.RestAPI.Controllers
                 BlogAuthor = Convert.ToString(dr["BlogAuthor"]),
                 BlogContent = Convert.ToString(dr["BlogContent"])
             };
-            return Ok();
+            return Ok(item);
         }
 
         [HttpPost]
@@ -80,6 +81,36 @@ namespace MTKDotNetCore.RestAPI.Controllers
             connection.Close ();
             string message = result > 0 ? "Create Successful." : "Create Failed.";
             //return StatusCode(500, message);
+            return Ok(message);
+        }
+
+        [HttpPut]
+        public IActionResult PutBlogUpdate(int id, BlogModel model)
+        {
+            string getQuery = "SELECT COUNT(*) FROM Tbl_Blog  WHERE BlogId = @BlogId";
+            SqlConnection connection = new SqlConnection(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
+            connection.Open();
+            SqlCommand checkBlogCMD = new SqlCommand(getQuery, connection);
+            checkBlogCMD.Parameters.AddWithValue("@BlogId", id);
+            var count = (int)checkBlogCMD.ExecuteScalar();
+            if (count == 0) return NotFound("No Blog");
+            
+            string updateQuery = @"UPDATE [dbo].[Tbl_Blog]
+                                   SET [BlogTitle] = @BlogTitle,
+                                       [BlogAuthor] = @BlogAuthor,
+                                       [BlogContent] = @BlogContent
+                                   WHERE BlogId = @BlogId";
+            
+            SqlCommand cmd = new SqlCommand(updateQuery, connection);
+            
+            cmd.Parameters.AddWithValue("@BlogId", id);
+            cmd.Parameters.AddWithValue("@BlogTitle", model.BlogTitle);
+            cmd.Parameters.AddWithValue("@BlogAuthor", model.BlogAuthor);
+            cmd.Parameters.AddWithValue("@BlogContent", model.BlogContent);
+            int result = cmd.ExecuteNonQuery();
+            
+            connection.Close();
+            string message = result > 0 ? "Update Blog success" : "Update Blog Fail";
             return Ok(message);
         }
     }
