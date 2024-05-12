@@ -17,11 +17,32 @@ namespace ClassLibrary1MTKDotNetCore.Shared
         {
             _connectionString = connectionString;
         }
-        public List<G> Query<G>(string query)
+        public class ADOParameter
+        {
+            public ADOParameter()
+            {
+            }
+            public ADOParameter(string name, object value)
+            {
+                Name = name;
+                Value = value;
+            }
+            public string Name { get; set; }
+            public object Value { get; set; }
+        }
+        public List<G> Query<G>(string query,params ADOParameter[] parameters)
         {
             SqlConnection connection = new SqlConnection(_connectionString);
             connection.Open();
             SqlCommand command = new SqlCommand(query, connection);
+            if (parameters is not null && parameters.Length > 0)
+            {
+                //foreach (var item in parameters)
+                //{
+                //    command.Parameters.AddWithValue(item.Name, item.Value);
+                //}
+                command.Parameters.AddRange(parameters.Select(item => new SqlParameter(item.Name, item.Value)).ToArray());
+            }
             SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
             DataTable dt = new DataTable();
             sqlDataAdapter.Fill(dt);
