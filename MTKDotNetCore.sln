@@ -5,9 +5,11 @@ VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTKDotNetCore.ConsoleApp", "MTKDotNetCore.ConsoleApp\MTKDotNetCore.ConsoleApp.csproj", "{2E86220B-894C-40D0-9C1B-186B54DBEEA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTKDotNetCore.RestAPI", "MTKDotNetCore.RestAPI\MTKDotNetCore.RestAPI.csproj", "{AD11D0AD-91B5-47B1-B88F-34B4DDF78FD5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTKDotNetCore.RestAPI", "MTKDotNetCore.RestAPI\MTKDotNetCore.RestAPI.csproj", "{AD11D0AD-91B5-47B1-B88F-34B4DDF78FD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTKDotNetCore.Shared", "MTKDotNetCore.Shared\MTKDotNetCore.Shared.csproj", "{66FBB707-3E0B-4565-8897-68754C9D5337}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTKDotNetCore.Shared", "MTKDotNetCore.Shared\MTKDotNetCore.Shared.csproj", "{66FBB707-3E0B-4565-8897-68754C9D5337}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTKDotNetCore.RestAPIWithNLayer", "MTKDotNetCore.RestAPIWithNLayer\MTKDotNetCore.RestAPIWithNLayer.csproj", "{295F41A8-76D1-4E4A-8156-27CDAC6AEBB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{66FBB707-3E0B-4565-8897-68754C9D5337}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66FBB707-3E0B-4565-8897-68754C9D5337}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66FBB707-3E0B-4565-8897-68754C9D5337}.Release|Any CPU.Build.0 = Release|Any CPU
+		{295F41A8-76D1-4E4A-8156-27CDAC6AEBB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{295F41A8-76D1-4E4A-8156-27CDAC6AEBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{295F41A8-76D1-4E4A-8156-27CDAC6AEBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{295F41A8-76D1-4E4A-8156-27CDAC6AEBB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
