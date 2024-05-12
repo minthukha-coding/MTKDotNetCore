@@ -30,7 +30,7 @@ namespace ClassLibrary1MTKDotNetCore.Shared
             public string Name { get; set; }
             public object Value { get; set; }
         }
-        public List<G> Query<G>(string query,params ADOParameter[] parameters)
+        public List<G> Query<G>(string query, ADOParameter[] parameters)
         {
             SqlConnection connection = new SqlConnection(_connectionString);
             connection.Open();

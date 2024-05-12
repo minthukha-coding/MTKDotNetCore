@@ -27,10 +27,10 @@ namespace MTKDotNetCore.RestAPI.Controllers
         public IActionResult GetByID(int id)
         {
             string query = "select * from Tbl_Blog where BlogId = @Blog_Id";
-            //ADOParameter[] parameters = new ADOParameter[1];
-            //parameters[0] = new ADOParameter("@Blog_Id", id);
-            //var lst = _adoService.Query<BlogModel>(query, parameters);
-            var item = _adoService.Query<BlogModel>(query, new ADOParameter("@Blog_Id",id));
+            ADOParameter[] parameters = new ADOParameter[1];
+            parameters[0] = new ADOParameter("@Blog_Id", id);
+            var item = _adoService.Query<BlogModel>(query, parameters);
+            //var item = _adoService.Query<BlogModel>(query, new ADOParameter("@Blog_Id",id));
             if (item is null)
             {
                 return NotFound("No data found.");
