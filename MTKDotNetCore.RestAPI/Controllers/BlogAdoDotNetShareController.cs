@@ -16,12 +16,12 @@ namespace MTKDotNetCore.RestAPI.Controllers
         private readonly ADOService _adoService = new ADOService(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
 
         [HttpGet]
-        //public IActionResult Get()
-        //{
-        //    string query = "select * from Tbl_Blog";
-        //    var lst = _adoService.Query<BlogModel>(query);
-        //    return Ok(lst);
-        //}
+        public IActionResult Get()
+        {
+            string query = "select * from Tbl_Blog";
+            var lst = _adoService.Query<BlogModel>(query);
+            return Ok(lst);
+        }
 
         [HttpGet("{id}")]
         public IActionResult GetByID(int id)
@@ -49,14 +49,12 @@ namespace MTKDotNetCore.RestAPI.Controllers
                            (@BlogTitle
                            ,@BlogAuthor       
                            ,@BlogContent)";
-            SqlConnection connection = new SqlConnection(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
-            connection.Open();
-            SqlCommand cmd = new SqlCommand(query, connection);
-            cmd.Parameters.AddWithValue("@BlogTitle", model.BlogTitle);
-            cmd.Parameters.AddWithValue("@BlogAuthor", model.BlogAuthor);
-            cmd.Parameters.AddWithValue("@BlogContent", model.BlogContent);
-            int result = cmd.ExecuteNonQuery();
-            connection.Close();
+            int result = _adoService.Execute(query,
+                new ADOParameter("@BlogTitle", model.BlogTitle),
+                new ADOParameter("@BlogAuthor", model.BlogAuthor),
+                new ADOParameter("@BlogContent", model.BlogContent)
+                );
+
             string message = result > 0 ? "Create Successful." : "Create Failed.";
             //return StatusCode(500, message);
             return Ok(message);

@@ -30,7 +30,7 @@ namespace ClassLibrary1MTKDotNetCore.Shared
             public string Name { get; set; }
             public object Value { get; set; }
         }
-        public List<G> Query<G>(string query, ADOParameter[] parameters)
+        public List<G> Query<G>(string query,params ADOParameter[] parameters)
         {
             SqlConnection connection = new SqlConnection(_connectionString);
             connection.Open();
@@ -51,6 +51,23 @@ namespace ClassLibrary1MTKDotNetCore.Shared
             string json = JsonConvert.SerializeObject(dt);
             List<G> list = JsonConvert.DeserializeObject<List<G>>(json);
             return list;
+        } 
+        public int Execute(string query,params ADOParameter[] parameters)
+        {
+            SqlConnection connection = new SqlConnection(_connectionString);
+            connection.Open();
+            SqlCommand command = new SqlCommand(query, connection);
+            if (parameters is not null && parameters.Length > 0)
+            {
+                //foreach (var item in parameters)
+                //{
+                //    command.Parameters.AddWithValue(item.Name, item.Value);
+                //}
+                command.Parameters.AddRange(parameters.Select(item => new SqlParameter(item.Name, item.Value)).ToArray());
+            }
+            var result = command.ExecuteNonQuery();
+            connection.Close();
+            return result;
         } 
         public G QueryFirstOrDefault<G>(string query, ADOParameter[] parameters)
         {
