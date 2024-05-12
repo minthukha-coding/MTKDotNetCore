@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Metadata;
+using ClassLibrary1MTKDotNetCore.Shared;
 
 namespace MTKDotNetCore.RestAPI.Controllers
 {
@@ -11,26 +12,13 @@ namespace MTKDotNetCore.RestAPI.Controllers
     [ApiController]
     public class BlogAdoDotNetShareController : ControllerBase
     {
+        private readonly ADOService _adoService = new ADOService(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
+
         [HttpGet]
         public IActionResult Get()
         {
             string query = "select * from Tbl_Blog";
-            SqlConnection connection = new SqlConnection(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
-            connection.Open();
-            SqlCommand command = new SqlCommand(query, connection);
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(command);
-            DataTable dt = new DataTable();
-            sqlDataAdapter.Fill(dt);
-            connection.Close();
-
-            List<BlogModel> lst = dt.AsEnumerable().Select(dr => new BlogModel
-            {
-                BlogId = Convert.ToInt32(dr["BlogId"]),
-                BlogTitle = Convert.ToString(dr["BlogTitle"]),
-                BlogAuthor = Convert.ToString(dr["BlogAuthor"]),
-                BlogContent = Convert.ToString(dr["BlogContent"])
-            }).ToList();
-
+            var lst = _adoService.Query<BlogModel>(query);
             return Ok(lst);
         }
 
