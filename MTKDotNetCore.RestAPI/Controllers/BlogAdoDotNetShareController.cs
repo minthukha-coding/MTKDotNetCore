@@ -29,7 +29,7 @@ namespace MTKDotNetCore.RestAPI.Controllers
             string query = "select * from Tbl_Blog where BlogId = @Blog_Id";
             ADOParameter[] parameters = new ADOParameter[1];
             parameters[0] = new ADOParameter("@Blog_Id", id);
-            var item = _adoService.Query<BlogModel>(query, parameters);
+            var item = _adoService.QueryFirstOrDefault<BlogModel>(query, parameters);
             //var item = _adoService.Query<BlogModel>(query, new ADOParameter("@Blog_Id",id));
             if (item is null)
             {
