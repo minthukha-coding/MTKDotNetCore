@@ -19,4 +19,8 @@
 		<Folder Include="Services\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\MTKDotNetCore.Shared\MTKDotNetCore.Shared.csproj" />
+	</ItemGroup>
+
 </Project>
