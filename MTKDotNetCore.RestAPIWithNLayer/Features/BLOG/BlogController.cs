@@ -6,10 +6,11 @@ namespace MTKDotNetCore.RestAPIWithNLayer.Features.BLOG
     [ApiController]
     public class BlogController : ControllerBase
     {
-        private BL_Blog _blBlog;
-        public BlogController(BL_Blog blBlog)
+        private readonly BL_Blog _blBlog;
+
+        public BlogController()
         {
-            _blBlog = blBlog;
+            _blBlog = new BL_Blog();
         }
 
         [HttpGet]

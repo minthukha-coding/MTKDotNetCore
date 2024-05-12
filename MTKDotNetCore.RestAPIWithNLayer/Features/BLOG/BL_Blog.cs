@@ -4,9 +4,9 @@
     {
         private readonly DA_Blog _daBlog;
 
-        public BL_Blog(DA_Blog daBlog)
+        public BL_Blog()
         {
-            _daBlog = daBlog;
+            _daBlog = new DA_Blog();
         }
         public List<BlogModel> GetBlogs()
         {
