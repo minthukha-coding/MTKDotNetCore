@@ -9,7 +9,7 @@ namespace MTKDotNetCore.RestAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogAdoDotNetController : ControllerBase
+    public class BlogAdoDotNetShareController : ControllerBase
     {
         [HttpGet]
         public IActionResult Get()
