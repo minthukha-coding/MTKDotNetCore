@@ -6,7 +6,10 @@ Console.WriteLine("Hello, World!");
 string jsonstr = await File.ReadAllTextAsync("data.json");
 var model = JsonConvert.DeserializeObject<MinTheinKha>(jsonstr);
 
-Console.WriteLine(model);
+foreach (var answer in model.answers)
+{
+    Console.WriteLine(answer.answerNo);
+}
 
 Console.ReadKey();
 public class MinTheinKha
