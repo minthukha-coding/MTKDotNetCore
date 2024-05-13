@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTKDotNetCore.RestAPI", "MT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTKDotNetCore.Shared", "MTKDotNetCore.Shared\MTKDotNetCore.Shared.csproj", "{66FBB707-3E0B-4565-8897-68754C9D5337}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTKDotNetCore.RestAPIWithNLayer", "MTKDotNetCore.RestAPIWithNLayer\MTKDotNetCore.RestAPIWithNLayer.csproj", "{295F41A8-76D1-4E4A-8156-27CDAC6AEBB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTKDotNetCore.RestAPIWithNLayer", "MTKDotNetCore.RestAPIWithNLayer\MTKDotNetCore.RestAPIWithNLayer.csproj", "{295F41A8-76D1-4E4A-8156-27CDAC6AEBB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTKDotNetCore.ConsoleAppHTTPClient", "MTKDotNetCore.ConsoleAppHTTPClient\MTKDotNetCore.ConsoleAppHTTPClient.csproj", "{68B77673-12BF-487D-8819-EF14BC9C6253}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{295F41A8-76D1-4E4A-8156-27CDAC6AEBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{295F41A8-76D1-4E4A-8156-27CDAC6AEBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{295F41A8-76D1-4E4A-8156-27CDAC6AEBB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68B77673-12BF-487D-8819-EF14BC9C6253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68B77673-12BF-487D-8819-EF14BC9C6253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68B77673-12BF-487D-8819-EF14BC9C6253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68B77673-12BF-487D-8819-EF14BC9C6253}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
