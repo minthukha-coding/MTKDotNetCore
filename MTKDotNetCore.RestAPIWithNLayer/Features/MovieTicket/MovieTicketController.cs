@@ -24,6 +24,13 @@ namespace MTKDotNetCore.RestAPIWithNLayer.Features.MovieTicket
             return Ok(model.Tbl_MovieList);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetCinemaList()
+        {
+            var model = await GetDataAsync();
+            return Ok(model.Tbl_CinemaList);
+        }
+
         #region Model
 
         public class MovieTicket
