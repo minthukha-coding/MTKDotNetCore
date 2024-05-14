@@ -65,6 +65,19 @@ namespace MTKDotNetCore.RestAPIWithNLayer.Features.MovieTicket
             var model = await GetDataAsync();
             return Ok(model.Tbl_SeatPrice.Where(x => x.RoomId == roomId && x.RowName == rowName).ToList());
         }
+        
+        [HttpGet("GetInvoice")]
+        public async Task<IActionResult> GetInvoice(string movieName, string movieTime, string roomSeat, string seatPrice)
+        {
+            var invoice = new
+            {
+                MovieName = movieName,
+                ShowTime = movieTime,
+                Seat = roomSeat,
+                Price = seatPrice
+            };
+            return Ok(invoice);
+        }
 
         #region Model
 
