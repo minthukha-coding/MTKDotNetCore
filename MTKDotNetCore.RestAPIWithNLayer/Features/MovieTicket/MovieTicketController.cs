@@ -50,7 +50,21 @@ namespace MTKDotNetCore.RestAPIWithNLayer.Features.MovieTicket
         {
             var model = await GetDataAsync();
             return Ok(model.Tbl_MovieSchedule.Where(x => x.ShowDateId == showDataId).ToList());
-         }
+        }
+
+        [HttpGet("GetRoomSeat")]
+        public async Task<IActionResult> GetRoomSeat(int roomId)
+        {
+            var model = await GetDataAsync();
+            return Ok(model.Tbl_RoomSeat.Where(x => x.RoomId == roomId).ToList());
+        }
+
+        [HttpGet("GetSeatprice")]
+        public async Task<IActionResult> GetSeatprice(int roomId, string rowName)
+        {
+            var model = await GetDataAsync();
+            return Ok(model.Tbl_SeatPrice.Where(x => x.RoomId == roomId && x.RowName == rowName).ToList());
+        }
 
         #region Model
 
