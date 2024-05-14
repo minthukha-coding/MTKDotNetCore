@@ -67,14 +67,51 @@ namespace MTKDotNetCore.RestAPIWithNLayer.Features.MovieTicket
         }
         
         [HttpGet("GetInvoice")]
-        public async Task<IActionResult> GetInvoice(string movieName, string movieTime, string roomSeat, string seatPrice)
+        public async Task<IActionResult> GetInvoice(int movieId, int cinemaId, int roomId, string rowName)
         {
+            var model = await GetDataAsync();
+
+            // Fetch movie details
+            var movie = model.Tbl_MovieList.FirstOrDefault(m => m.MovieId == movieId);
+            if (movie == null)
+                return NotFound("Movie not found");
+
+            // Fetch cinema details
+            var cinema = model.Tbl_CinemaList.FirstOrDefault(c => c.CinemaId == cinemaId);
+            if (cinema == null)
+                return NotFound("Cinema not found");
+
+            // Fetch room details
+            var room = model.Tbl_CinemaRoom.FirstOrDefault(r => r.RoomId == roomId && r.CinemaId == cinemaId);
+            if (room == null)
+                return NotFound("Room not found");
+
+            // Fetch seat details
+            var seat = model.Tbl_RoomSeat.FirstOrDefault(s => s.RoomId == roomId && s.RowName == rowName);
+            if (seat == null)
+                return NotFound("Seat not found");
+
+            // Fetch seat price
+            var seatPrice = model.Tbl_SeatPrice.FirstOrDefault(sp => sp.RoomId == roomId && sp.RowName == rowName);
+            if (seatPrice == null)
+                return NotFound("Seat price not found");
+
+            // Fetch showtime
+            var showDate = model.Tbl_MovieShowDate.FirstOrDefault(sd => sd.MovieId == movieId && sd.CinemaId == cinemaId && sd.RoomId == roomId);
+            if (showDate == null)
+                return NotFound("Show time not found");
+
+            var showTime = model.Tbl_MovieSchedule.FirstOrDefault(ms => ms.ShowDateId == showDate.ShowDateId);
+            if (showTime == null)
+                return NotFound("Show schedule not found");
             var invoice = new
             {
-                MovieName = movieName,
-                ShowTime = movieTime,
-                Seat = roomSeat,
-                Price = seatPrice
+                MovieName = movie.MovieTitle,
+                ShowTime = showTime.ShowDateTime,
+                CinemaName = cinema.CinemaName,
+                RoomName = room.RoomName,
+                Seat = seat.RowName + seat.SeatNo,
+                Price = seatPrice.SeatPrice
             };
             return Ok(invoice);
         }
