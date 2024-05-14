@@ -38,6 +38,14 @@ namespace MTKDotNetCore.RestAPIWithNLayer.Features.MovieTicket
             return Ok(model.Tbl_CinemaRoom.Where(x => x.CinemaId == cinemaId).ToList());
         }
 
+        [HttpGet("{movieid}/{cinemaId}/{roomId]")]
+        public async Task<IActionResult> GetMovieShowTime(int movieid,int cinemaId,int roomId)
+        {
+            var model = await GetDataAsync();
+            return Ok(model.Tbl_MovieShowDate
+                .Where(x => x.MovieId == movieid && x.CinemaId == cinemaId && x.RoomId == roomId));
+        }
+
         #region Model
 
         public class MovieTicket
