@@ -17,18 +17,25 @@ namespace MTKDotNetCore.RestAPIWithNLayer.Features.MovieTicket
             return model;
         }
 
-        [HttpGet("movies")]
+        [HttpGet("getMovies")]
         public async Task<IActionResult> GetMovies()
         {
             var model = await GetDataAsync();
             return Ok(model.Tbl_MovieList);
         }
 
-        [HttpGet]
+        [HttpGet("getCinemaList")]
         public async Task<IActionResult> GetCinemaList()
         {
             var model = await GetDataAsync();
             return Ok(model.Tbl_CinemaList);
+        }   
+        
+        [HttpGet("getCinemaRoomWithCinemaId")]
+        public async Task<IActionResult> GetCinemaRoomWithCinemaId(int cinemaId)
+        {
+            var model = await GetDataAsync();
+            return Ok(model.Tbl_CinemaRoom.Where(x => x.CinemaId == cinemaId).ToList());
         }
 
         #region Model
