@@ -13,7 +13,7 @@ namespace MTKDotNetCore.RestAPIWithNLayer.Features.LaHtaukBayDin
 
         private async Task<LaHtaukBayDin> GetDataAsync()
         {
-            string jsonstr = await System.IO.File.ReadAllTextAsync("data.json");
+            string jsonstr = await System.IO.File.ReadAllTextAsync("LaHtaukBayDin.json");
             var model = JsonConvert.DeserializeObject<LaHtaukBayDin>(jsonstr);
             return model;
         }
