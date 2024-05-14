@@ -29,22 +29,28 @@ namespace MTKDotNetCore.RestAPIWithNLayer.Features.MovieTicket
         {
             var model = await GetDataAsync();
             return Ok(model.Tbl_CinemaList);
-        }   
-        
+        }
+
         [HttpGet("getCinemaRoomWithCinemaId")]
         public async Task<IActionResult> GetCinemaRoomWithCinemaId(int cinemaId)
         {
             var model = await GetDataAsync();
             return Ok(model.Tbl_CinemaRoom.Where(x => x.CinemaId == cinemaId).ToList());
         }
-
-        [HttpGet("{movieid}/{cinemaId}/{roomId]")]
-        public async Task<IActionResult> GetMovieShowTime(int movieid,int cinemaId,int roomId)
+        [HttpGet("GetMovieShowTime")]
+        public async Task<IActionResult> GetMovieShowTime(int movieid, int cinemaId, int roomId)
         {
             var model = await GetDataAsync();
             return Ok(model.Tbl_MovieShowDate
                 .Where(x => x.MovieId == movieid && x.CinemaId == cinemaId && x.RoomId == roomId));
         }
+
+        [HttpGet("GetMovieschedule")]
+        public async Task<IActionResult> GetMovieschedule(int showDataId)
+        {
+            var model = await GetDataAsync();
+            return Ok(model.Tbl_MovieSchedule.Where(x => x.ShowDateId == showDataId).ToList());
+         }
 
         #region Model
 
