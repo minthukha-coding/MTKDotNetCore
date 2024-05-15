@@ -37,8 +37,9 @@ namespace MTKDotNetCore.RestAPIWithNLayer.Features.MovieTicket
             var model = await GetDataAsync();
             return Ok(model.Tbl_CinemaRoom.Where(x => x.CinemaId == cinemaId).ToList());
         }
-        [HttpGet("GetMovieShowTime")]
-        public async Task<IActionResult> GetMovieShowTime(int movieid, int cinemaId, int roomId)
+
+        [HttpGet("GetMovieShowDate")]
+        public async Task<IActionResult> GetMovieShowDate(int movieid, int cinemaId, int roomId)
         {
             var model = await GetDataAsync();
             return Ok(model.Tbl_MovieShowDate
