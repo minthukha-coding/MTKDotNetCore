@@ -1,11 +1,24 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+
 Console.WriteLine("Hello, World!");
 
 HttpClient httpClient = new HttpClient();
-HttpResponseMessage response = await httpClient.GetAsync("https://localhost:7279/api/movieticket/getmovies");
+HttpResponseMessage response = await httpClient.GetAsync("https://localhost:7051/api/blogAdoDotNet");
 if (response.IsSuccessStatusCode)
 {
     string jsonStr = await response.Content.ReadAsStringAsync();
-    Console.WriteLine(jsonStr);
-    Console.ReadKey();  
-}   
+    List<BlogModel> lst = JsonConvert.DeserializeObject<List<BlogModel>>(jsonStr)!;
+    foreach (var blog in lst)
+    {
+        Console.WriteLine(JsonConvert.SerializeObject(blog));
+    }
+}
+public class BlogModel
+{
+    [Key]
+    public int BlogId { get; set; }
+    public string BlogTitle { get; set; }
+    public string BlogAuthor { get; set; }
+    public string BlogContent { get; set; }
+}
