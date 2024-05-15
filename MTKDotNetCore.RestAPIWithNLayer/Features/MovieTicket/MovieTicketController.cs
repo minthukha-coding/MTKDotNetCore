@@ -39,12 +39,11 @@ namespace MTKDotNetCore.RestAPIWithNLayer.Features.MovieTicket
         }
 
         [HttpGet("GetMovieShowDate")]
-        public async Task<IActionResult> GetMovieShowDate(int movieid, int cinemaId, int roomId)
+        public async Task<IActionResult> GetMovieShowDate()
         {
             var model = await GetDataAsync();
-            return Ok(model.Tbl_MovieShowDate
-                .Where(x => x.MovieId == movieid && x.CinemaId == cinemaId && x.RoomId == roomId));
-        }
+            return Ok(model.Tbl_MovieShowDate);
+         }
 
         [HttpGet("GetMovieschedule")]
         public async Task<IActionResult> GetMovieschedule(int showDateId)
