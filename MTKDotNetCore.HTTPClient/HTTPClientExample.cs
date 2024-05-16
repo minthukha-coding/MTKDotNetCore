@@ -11,9 +11,10 @@ namespace MTKDotNetCore.ConsoleApp.HTTPClient
 
         public void Run()
         {
-            //Edit(7);
+            //Read();
             //Edit(422);
-            Read();
+            Update(7, "w3wf", "23r23", "ewrw");
+            Edit(7);
         }
 
         private async Task Read()
@@ -34,7 +35,7 @@ namespace MTKDotNetCore.ConsoleApp.HTTPClient
             }
             else
             {
-                string message = await response.Content.ReadAsStringAsync() ;
+                string message = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(message);
             }
         }
@@ -57,8 +58,8 @@ namespace MTKDotNetCore.ConsoleApp.HTTPClient
                 Console.WriteLine(message);
             }
         }
-        
-        private async Task Create(string title,string author,string content)
+
+        private async Task Create(string title, string author, string content)
         {
             BlogModel model = new BlogModel()
             {
@@ -70,6 +71,38 @@ namespace MTKDotNetCore.ConsoleApp.HTTPClient
             HttpContent httpContent = new StringContent(blogJson, Encoding.UTF8, Application.Json);
             var response = await _httpClient.PostAsync(_blogEndPoint, httpContent);
             if (response.IsSuccessStatusCode)
+            {
+                string message = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(message);
+            }
+        }
+
+        private async Task Update(int id, string title, string author, string content)
+        {
+            BlogModel model = new BlogModel()
+            {
+                BlogTitle = title,
+                BlogAuthor = author,
+                BlogContent = content
+            };
+            string blogJson = JsonConvert.SerializeObject(model);
+            HttpContent httpcontent = new StringContent(blogJson, Encoding.UTF8, Application.Json);
+            var response = await _httpClient.PutAsync($"{_blogEndPoint}/{id}", httpcontent);
+            if (response.IsSuccessStatusCode)
+            {
+                string message = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(message);
+            }
+        }
+        private async Task Delete(int id)
+        {
+            var response = await _httpClient.DeleteAsync($"{_blogEndPoint}/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                string message = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(message);
+            }
+            else
             {
                 string message = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(message);
