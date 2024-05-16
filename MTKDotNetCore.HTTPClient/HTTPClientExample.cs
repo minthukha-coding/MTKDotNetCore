@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MTKDotNetCore.ConsoleApp.HTTPClient
 {
@@ -11,10 +13,10 @@ namespace MTKDotNetCore.ConsoleApp.HTTPClient
         {
             //Edit(7);
             //Edit(422);
-            ReadAsync();
+            Read();
         }
 
-        private async Task ReadAsync()
+        private async Task Read()
         {
             var response = await _httpClient.GetAsync(_blogEndPoint);
             if (response.IsSuccessStatusCode)
@@ -50,6 +52,24 @@ namespace MTKDotNetCore.ConsoleApp.HTTPClient
                 Console.WriteLine("_____________");
             }
             else
+            {
+                string message = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(message);
+            }
+        }
+        
+        private async Task Create(string title,string author,string content)
+        {
+            BlogModel model = new BlogModel()
+            {
+                BlogTitle = title,
+                BlogAuthor = author,
+                BlogContent = content
+            };
+            string blogJson = JsonConvert.SerializeObject(model);
+            HttpContent httpContent = new StringContent(blogJson, Encoding.UTF8, Application.Json);
+            var response = await _httpClient.PostAsync(_blogEndPoint, httpContent);
+            if (response.IsSuccessStatusCode)
             {
                 string message = await response.Content.ReadAsStringAsync();
                 Console.WriteLine(message);
