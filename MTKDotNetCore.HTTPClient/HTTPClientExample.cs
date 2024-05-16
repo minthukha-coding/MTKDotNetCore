@@ -9,12 +9,12 @@ namespace MTKDotNetCore.ConsoleApp.HTTPClient
 
         public void Run()
         {
-            Edit(7);
-            Edit(422);
-            Read();
+            //Edit(7);
+            //Edit(422);
+            ReadAsync();
         }
 
-        private async Task Read()
+        private async Task ReadAsync()
         {
             var response = await _httpClient.GetAsync(_blogEndPoint);
             if (response.IsSuccessStatusCode)
@@ -29,6 +29,11 @@ namespace MTKDotNetCore.ConsoleApp.HTTPClient
                     Console.WriteLine($"Content - {blog.BlogContent}");
                     Console.WriteLine("_____________");
                 }
+            }
+            else
+            {
+                string message = await response.Content.ReadAsStringAsync() ;
+                Console.WriteLine(message);
             }
         }
 
