@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTKDotNetCore.ConsoleAppJso
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MTKDotNetCore.ConsoleApp.HTTPClient", "MTKDotNetCore.HTTPClient\MTKDotNetCore.ConsoleApp.HTTPClient.csproj", "{B3CCD71D-CDF0-4534-BE47-83E0932EA2E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MTKDotNetCore.ConsoleApp.RestClient", "MTKDotNetCore.ConsoleApp.RestClient\MTKDotNetCore.ConsoleApp.RestClient.csproj", "{150A9821-E87F-4948-B199-51E3EC9FC9AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{B3CCD71D-CDF0-4534-BE47-83E0932EA2E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3CCD71D-CDF0-4534-BE47-83E0932EA2E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3CCD71D-CDF0-4534-BE47-83E0932EA2E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{150A9821-E87F-4948-B199-51E3EC9FC9AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{150A9821-E87F-4948-B199-51E3EC9FC9AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{150A9821-E87F-4948-B199-51E3EC9FC9AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{150A9821-E87F-4948-B199-51E3EC9FC9AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
