@@ -9,8 +9,11 @@ namespace MTKDotNetCore.ConsoleApp.RestClientExamples
         private readonly string _blogEndPoint = "api/blogAdoDotNet";
         public async Task Run()
         {
-            Read();
-            Edit(5);
+            //Read();
+            Update(24, "123123", "23423", "2423");
+            Edit(24);
+            Delete(24);
+            Edit(24);
         }
         private async Task Read()
         {
@@ -54,6 +57,38 @@ namespace MTKDotNetCore.ConsoleApp.RestClientExamples
             request.AddJsonBody(model);
             var response = await _restClient.ExecuteAsync(request);
             if (response.IsSuccessStatusCode)
+            {
+                string message = response.Content!;
+                Console.WriteLine(message);
+            }
+        }
+        public async Task Update(int id,string title,string author,string content)
+        {
+            BlogModel model = new BlogModel()
+            {
+                BlogTitle = title,
+                BlogAuthor = author,
+                BlogContent = content
+            };
+            var request = new RestRequest( $"{_blogEndPoint}/{id}", Method.Post);
+            request.AddJsonBody(model);
+            var response = await _restClient.ExecuteAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                string message = response.Content!;
+                Console.WriteLine(message);
+            }
+        }
+        public async Task Delete(int id)
+        {
+            var request = new RestRequest($"{_blogEndPoint}/{id}", Method.Delete);
+            var response = await _restClient.ExecuteAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                string message = response.Content!;
+                Console.WriteLine(message);
+            }
+            else
             {
                 string message = response.Content!;
                 Console.WriteLine(message);
