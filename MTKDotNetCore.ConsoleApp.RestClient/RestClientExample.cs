@@ -42,5 +42,22 @@ namespace MTKDotNetCore.ConsoleApp.RestClientExamples
                 Console.WriteLine($"Content => {item.BlogContent}");
             }
         }
+        public async Task Create(string title,string author,string content)
+        {
+            BlogModel model = new BlogModel()
+            {
+                BlogTitle = title,
+                BlogAuthor = author,
+                BlogContent = content
+            };
+            var request = new RestRequest(_blogEndPoint, Method.Post);
+            request.AddJsonBody(model);
+            var response = await _restClient.ExecuteAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                string message = response.Content!;
+                Console.WriteLine(message);
+            }
+        }
     }
 }
