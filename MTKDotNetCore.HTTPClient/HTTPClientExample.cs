@@ -13,8 +13,10 @@ namespace MTKDotNetCore.ConsoleApp.HTTPClient
         {
             //Read();
             //Edit(422);
-            Update(7, "w3wf", "23r23", "ewrw");
-            Edit(7);
+            //Update(7, "w3wf", "23r23", "ewrw");
+            //Edit(7);
+            //Create("123", "123", "123");
+            Read();
         }
 
         private async Task Read()
