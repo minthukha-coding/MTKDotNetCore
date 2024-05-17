@@ -2,3 +2,4 @@
 
 RestClientExample restClientExample = new RestClientExample();
 restClientExample.Run();
+Console.ReadLine();
