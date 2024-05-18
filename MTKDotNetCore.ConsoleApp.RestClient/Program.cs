@@ -1,5 +1,7 @@
 ﻿using MTKDotNetCore.ConsoleApp.RestClientExamples;
 
+Console.WriteLine("Hello World");
+
 RestClientExample restClientExample = new RestClientExample();
-restClientExample.Run();
+await restClientExample.Run();
 Console.ReadLine();
