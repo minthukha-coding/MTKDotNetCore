@@ -14,8 +14,15 @@ namespace MTKDotNetCore.ConsoleApp.RefitExample
 
         [Get("api/blogEfCore/{id}")]
         Task<BlogModel> GetBlog(int blogId);
+
         [Post("api/blogEfcore")]
         Task<BlogModel> CreateBlog(BlogModel blog);
+
+        [Put("api/blogEfCore/{id}")]
+        Task<BlogModel> UpdateBlog(int id ,BlogModel blog);
+
+        [Delete("{id}")]
+        Task<BlogModel> DeleteBlog(int id);
     }
     public class BlogModel
     {
