@@ -21,6 +21,19 @@ namespace MTKDotNetCore.PizzaAPI.Features
         {
             var lst = await _appDbContext.Pizzas.ToListAsync();
             return Ok(lst);
+        } 
+
+        [HttpGet("Extras")]
+        public async Task<IActionResult> GetExtras()
+        {
+            var lst = await _appDbContext.PizzaExtrass.ToListAsync();
+            return Ok(lst); 
+        }
+
+        [HttpPost("Order")]
+        public async Task<IActionResult> Order(OrderRequest reqModel)
+        {
+            return Ok(reqModel);
         }
     }
 }

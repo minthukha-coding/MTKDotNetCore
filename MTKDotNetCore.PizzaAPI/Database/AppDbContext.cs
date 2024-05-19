@@ -16,6 +16,7 @@ internal class AppDbContext : DbContext
         optionsBuilder.UseSqlServer(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
     }
     public DbSet<PizzaModel> Pizzas { get; set; }
+    public DbSet<PizzaExtraModel> PizzaExtrass { get; set; }
 }
 
 [Table("Tbl_Pizza")]
@@ -30,3 +31,22 @@ public class PizzaModel()
     public decimal PizzaPrice { get; set; }
 }
 
+[Table("Tbl_PizzaExtra")]
+public class PizzaExtraModel()
+{
+    [Key]
+    [Column("PizzaExtraId")]
+    public int ID { get; set; } 
+    [Column("PizzaExtraName")]
+    public string Name { get; set; }  
+    [Column("Price")]
+    public decimal Price { get; set; }
+    [NotMapped]
+    public string PriceString { get { return "$ " + Price; } }
+}
+
+public class OrderRequest()
+{
+    public int PizzaId { get; set; }
+    public int[] Extras { get; set;  }
+}
