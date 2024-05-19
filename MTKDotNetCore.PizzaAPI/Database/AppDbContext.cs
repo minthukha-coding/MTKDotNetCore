@@ -25,8 +25,8 @@ public class PizzaModel()
     [Column("PizzaId")]
     public int ID { get; set; }
     [Column("Pizza")]
-    public int NAme { get; set; } 
+    public string Name { get; set; } 
     [Column("Price")]
-    public int PizzaPrice { get; set; }
+    public decimal PizzaPrice { get; set; }
 }
 
