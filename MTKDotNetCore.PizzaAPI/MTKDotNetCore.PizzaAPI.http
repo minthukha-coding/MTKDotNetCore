@@ -1,0 +1,6 @@
+@MTKDotNetCore.PizzaAPI_HostAddress = http://localhost:5224
+
+GET {{MTKDotNetCore.PizzaAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
