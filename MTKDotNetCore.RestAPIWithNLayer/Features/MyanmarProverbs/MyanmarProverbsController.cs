@@ -11,13 +11,16 @@ public class MyanmarProverbsController : ControllerBase
     private async Task<Myanmarproverbs> GetDataFromApi()
     {
         HttpClient httpClient = new HttpClient();
-        var response = await httpClient.GetAsync("https://github.com/sannlynnhtun-coding/Myanmar-Proverbs/blob/main/MyanmarProverbs.json");
+        var response = await httpClient.GetAsync("https://raw.githubusercontent.com/sannlynnhtun-coding/Myanmar-Proverbs/main/MyanmarProverbs.json");
         if (response.IsSuccessStatusCode)
         {
             string jsonStr = await response.Content.ReadAsStringAsync();
-            JsonConvert.DeserializeObject<Myanmarproverbs>(jsonStr);
+            var model = JsonConvert.DeserializeObject<Myanmarproverbs>(jsonStr);
+            return model;
         }
+        return null;
     }
+    [HttpGet]
     public async Task<IActionResult> Get()
     {
         var model = await GetDataFromApi();
