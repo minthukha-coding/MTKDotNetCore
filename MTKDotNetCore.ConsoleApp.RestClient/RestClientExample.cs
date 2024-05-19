@@ -10,9 +10,12 @@ namespace MTKDotNetCore.ConsoleApp.RestClientExamples
         public async Task Run()
         {
             //await Read();
-             await Update(1024, "e", "e", "e");
-             await Edit(1024);
+            //await Update(1024, "ez", "ez", "ez");
+            //await Edit(1024);
             //await Delete(24);
+            //await Create("HelloWorld", "HelloWorld", "HelloWorld");
+            await Delete(1027);
+            await Read();
             //await Edit(24);
         }
         private async Task Read()
@@ -21,7 +24,7 @@ namespace MTKDotNetCore.ConsoleApp.RestClientExamples
             var response = await _restClient.ExecuteAsync(restRequest);
             if (response.IsSuccessStatusCode)
             {
-                 string jsonStr = response.Content!;
+                string jsonStr = response.Content!;
                 List<BlogModel> lst = JsonConvert.DeserializeObject<List<BlogModel>>(jsonStr)!;
                 foreach (var item in lst)
                 {
@@ -45,7 +48,7 @@ namespace MTKDotNetCore.ConsoleApp.RestClientExamples
                 Console.WriteLine($"Content => {item.BlogContent}");
             }
         }
-        public async Task Create(string title,string author,string content)
+        public async Task Create(string title, string author, string content)
         {
             BlogModel model = new BlogModel()
             {
@@ -62,7 +65,7 @@ namespace MTKDotNetCore.ConsoleApp.RestClientExamples
                 Console.WriteLine(message);
             }
         }
-        public async Task Update(int id,string title,string author,string content)
+        public async Task Update(int id, string title, string author, string content)
         {
             BlogModel model = new BlogModel()
             {
@@ -70,7 +73,7 @@ namespace MTKDotNetCore.ConsoleApp.RestClientExamples
                 BlogAuthor = author,
                 BlogContent = content
             };
-            var request = new RestRequest($"{_blogEndPoint}/{id}",Method.Put);
+            var request = new RestRequest($"{_blogEndPoint}/{id}", Method.Put);
             request.AddJsonBody(model);
             var response = await _restClient.ExecuteAsync(request);
             if (response.IsSuccessStatusCode)
