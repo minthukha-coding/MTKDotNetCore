@@ -10,12 +10,12 @@ namespace MTKDotNetCore.ConsoleApp.RestClientExamples
         public async Task Run()
         {
             //await Read();
-            //await Update(1024, "ez", "ez", "ez");
+            await Update(241434123, "ez", "ez", "ez");
             //await Edit(1024);
             //await Delete(24);
             //await Create("HelloWorld", "HelloWorld", "HelloWorld");
-            await Delete(1027);
-            await Read();
+            //await Delete(1027);
+            //await Read();
             //await Edit(24);
         }
         private async Task Read()
