@@ -20,11 +20,35 @@ public class MyanmarProverbsController : ControllerBase
         }
         return null;
     }
+
     [HttpGet]
     public async Task<IActionResult> Get()
     {
         var model = await GetDataFromApi();
         return Ok(model.Tbl_MMProverbsTitle);
+    }
+
+    [HttpGet("{titleName}")]
+    public async Task<IActionResult> Get(string titleName)
+    {
+        var model = await GetDataFromApi();
+        var item = model.Tbl_MMProverbsTitle.FirstOrDefault(x => x.TitleName == titleName);
+        if (item is null)
+        {
+            return NotFound();
+        }
+        var titleId = item.TitleId;
+        var lst = model.Tbl_MMProverbs.Where(x => x.TitleId == titleId);
+        return Ok(lst);
+    }
+
+    [HttpGet("{titleId}/{proverbId}")]
+    public async Task<IActionResult> Get(int titleId, int proverbId)
+    {
+        var model = await GetDataFromApi();
+        var item = model.Tbl_MMProverbs.FirstOrDefault(x => x.TitleId == titleId && x.ProverbId == proverbId);
+
+        return Ok(item);
     }
 }
 public class Myanmarproverbs
