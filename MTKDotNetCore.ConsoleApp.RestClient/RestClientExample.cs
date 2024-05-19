@@ -6,14 +6,14 @@ namespace MTKDotNetCore.ConsoleApp.RestClientExamples
     public class RestClientExample
     {
         private readonly RestClient _restClient = new RestClient(new Uri("https://localhost:7051"));
-        private readonly string _blogEndPoint = "api/blogAdoDotNet";
+        private readonly string _blogEndPoint = "api/blogEfCore";
         public async Task Run()
         {
             //await Read();
-            await Update(1024, "123123", "23423", "2423");
-            await Edit(1024);
-            //Delete(24);
-            //Edit(24);
+             await Update(1024, "e", "e", "e");
+             await Edit(1024);
+            //await Delete(24);
+            //await Edit(24);
         }
         private async Task Read()
         {
