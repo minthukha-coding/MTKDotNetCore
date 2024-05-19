@@ -9,20 +9,20 @@ namespace MTKDotNetCore.ConsoleApp.RefitExample
 {
     public interface IBlogApi
     {
-        [Get("api/blogEfCore")]
+        [Get("/api/blogEfCore")]
         Task<List<BlogModel>> GetBlogs();
 
-        [Get("api/blogEfCore/{id}")]
-        Task<BlogModel> GetBlog(int blogId);
+        [Get("/api/blogEfCore/{id}")]
+        Task<BlogModel> GetBlog(int id);
 
-        [Post("api/blogEfcore")]
-        Task<BlogModel> CreateBlog(BlogModel blog);
+        [Post("/api/blogEfCore")]
+        Task<string> CreateBlog(BlogModel blog);
 
-        [Put("api/blogEfCore/{id}")]
-        Task<BlogModel> UpdateBlog(int id ,BlogModel blog);
+        [Put("/api/blogEfCore/{id}")]
+        Task<string> UpdateBlog(int id ,BlogModel blog);
 
-        [Delete("{id}")]
-        Task<BlogModel> DeleteBlog(int id);
+        [Delete("/api/blogEfCore/{id}")]
+        Task<string> DeleteBlog(int id);
     }
     public class BlogModel
     {

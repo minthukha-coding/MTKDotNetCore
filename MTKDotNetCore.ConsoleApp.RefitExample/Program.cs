@@ -1,4 +1,5 @@
 ﻿using MTKDotNetCore.ConsoleApp.RefitExample;
 
 RefitExample program = new RefitExample();
-program.Run();
+await program.Run();
+Console.ReadKey();

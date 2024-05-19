@@ -12,12 +12,16 @@ namespace MTKDotNetCore.ConsoleApp.RefitExample
         private readonly IBlogApi _service = RestService.For<IBlogApi>("https://localhost:7051");
         public async Task Run()
         {
-            await Read();
-            await Edit(8);
-            await Update(8, "YOYOYO", "YOUOYO", "YOYOUO");
-            await Edit(8);
-            await Delete(8);
-            await Create("HEHEHEHEHE", "HEHEHEHEHE", "HEHEHEH");
+            //await Read();
+            await Update(103412, "123", "123", "YOYOUO");
+            //await Edit(1034);
+            //await Edit(9999999);
+            //await Delete(1028);
+            //await Delete(12941324);
+            //await Edit(1031);
+            //await Edit(103112);
+            //await Create("9999999", "9999999", "9999999");
+            //await Read();
         }
         private async Task Read()
         {
@@ -46,22 +50,34 @@ namespace MTKDotNetCore.ConsoleApp.RefitExample
             {
                 Console.WriteLine(ex.StatusCode.ToString());
                 Console.WriteLine(ex.Content);
-            }   
+            }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
         }
-        private async Task Create(string title , string author,string content)
+        private async Task Create(string title, string author, string content)
         {
-            BlogModel reqModel = new BlogModel()
+            try
             {
-                BlogTitle = title,
-                BlogAuthor = author,
-                BlogContent = content
-            };
-            var response = await _service.CreateBlog(reqModel);
-            Console.WriteLine(response);
+                BlogModel reqModel = new BlogModel()
+                {
+                    BlogTitle = title,
+                    BlogAuthor = author,
+                    BlogContent = content
+                };
+                var response = await _service.CreateBlog(reqModel);
+                Console.WriteLine(response);
+            }
+            catch (ApiException ex)
+            {
+                Console.WriteLine(ex.StatusCode.ToString());
+                Console.WriteLine(ex.Content);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         private async Task Update(int id, string title, string author, string content)
         {
@@ -71,12 +87,13 @@ namespace MTKDotNetCore.ConsoleApp.RefitExample
                 BlogAuthor = author,
                 BlogContent = content
             };
-            var response = await _service.UpdateBlog(id,reqModel);
-            Console.WriteLine(response);
+            var message = await _service.UpdateBlog(id, reqModel);
+            Console.WriteLine(message);
         }
         private async Task Delete(int id)
         {
             var response = await _service.DeleteBlog(id);
+            Console.WriteLine(response);
         }
     }
 }
