@@ -21,19 +21,65 @@ namespace MTKDotNetCore.PizzaAPI.Features
         {
             var lst = await _appDbContext.Pizzas.ToListAsync();
             return Ok(lst);
-        } 
+        }
 
         [HttpGet("Extras")]
         public async Task<IActionResult> GetExtras()
         {
             var lst = await _appDbContext.PizzaExtrass.ToListAsync();
-            return Ok(lst); 
+            return Ok(lst);
         }
 
         [HttpPost("Order")]
         public async Task<IActionResult> Order(OrderRequest reqModel)
         {
-            return Ok(reqModel);
+            var PizzaOrderInoviceNo = DateTime.Now.ToString("yyyyMMddHHmmss");
+            var itemPizza = await _appDbContext.Pizzas.FirstOrDefaultAsync(x => x.ID == reqModel.PizzaId);
+            var total = itemPizza.PizzaPrice;
+
+            if (reqModel.Extras.Length > 0)
+            {
+                var lstExtra = await _appDbContext.PizzaExtrass.Where(x => reqModel.Extras.Contains(x.ID)).ToListAsync();
+                total += lstExtra.Sum(x => x.Price);
+            }
+
+            PizzaOrderModel pizzaOrderModel = new PizzaOrderModel
+            {
+                PizzaId = reqModel.PizzaId,
+                PizzaOrderInoviceNo = PizzaOrderInoviceNo,
+                TotalAmount = total
+            };
+
+            List<PizzaOrderDetailModel> pizzaOrderDetailsModel = reqModel.Extras.Select(extraId => new PizzaOrderDetailModel
+            {
+                PizzaExtraId = extraId,
+                PizzaOrderInoviceNo = PizzaOrderInoviceNo
+            }).ToList();
+
+            await _appDbContext.AddAsync(pizzaOrderModel);
+            await _appDbContext.SaveChangesAsync();
+
+            OrderRespnse respnse = new OrderRespnse()
+            {
+                InvoiceNo = PizzaOrderInoviceNo,
+                Message = "Thank you for your order! Enjoy your pizza!",
+                TotalAmount = total,
+            };
+
+            return (Ok(respnse));
         }
+
+        //[HttpPost("Order/{invoiceNo}")]
+        //public async Task<IActionResult> Order(string invoiceNo)
+        //{
+        //    var item = await _appDbContext.PizzaOrder.FirstOrDefaultAsync(x => x.PizzaOrderInoviceNo == invoiceNo);
+        //    var lst = await _appDbContext.PizzaOrderDetail.Where(x => x.PizzaOrderInoviceNo == invoiceNo).ToListAsync();
+        //    return Ok(
+        //        new
+        //        {
+        //            Order = item,
+        //            OrderDetail = lst
+        //        });
+        //}
     }
 }

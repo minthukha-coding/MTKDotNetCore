@@ -17,6 +17,9 @@ internal class AppDbContext : DbContext
     }
     public DbSet<PizzaModel> Pizzas { get; set; }
     public DbSet<PizzaExtraModel> PizzaExtrass { get; set; }
+    public DbSet<OrderRequest> OrderRequest { get; set; }
+    public DbSet<PizzaOrderModel> PizzaOrder { get; set; }
+    public DbSet<PizzaOrderDetailModel> PizzaOrderDetail { get; set; }
 }
 
 [Table("Tbl_Pizza")]
@@ -49,6 +52,13 @@ public class OrderRequest()
 {
     public int PizzaId { get; set; }
     public int[] Extras { get; set; }
+}
+
+public class OrderRespnse()
+{
+    public string Message { get; set; }
+    public string InvoiceNo { get; set; }
+    public decimal TotalAmount { get; set; }
 }
 
 [Table("Tbl_PizzaOrder")]
