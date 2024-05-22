@@ -17,7 +17,6 @@ internal class AppDbContext : DbContext
     }
     public DbSet<PizzaModel> Pizzas { get; set; }
     public DbSet<PizzaExtraModel> PizzaExtrass { get; set; }
-    public DbSet<OrderRequest> OrderRequest { get; set; }
     public DbSet<PizzaOrderModel> PizzaOrder { get; set; }
     public DbSet<PizzaOrderDetailModel> PizzaOrderDetail { get; set; }
 }
