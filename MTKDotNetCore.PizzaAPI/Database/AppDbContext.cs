@@ -26,7 +26,7 @@ public class PizzaModel()
     [Column("PizzaId")]
     public int ID { get; set; }
     [Column("Pizza")]
-    public string Name { get; set; } 
+    public string Name { get; set; }
     [Column("Price")]
     public decimal PizzaPrice { get; set; }
 }
@@ -36,9 +36,9 @@ public class PizzaExtraModel()
 {
     [Key]
     [Column("PizzaExtraId")]
-    public int ID { get; set; } 
+    public int ID { get; set; }
     [Column("PizzaExtraName")]
-    public string Name { get; set; }  
+    public string Name { get; set; }
     [Column("Price")]
     public decimal Price { get; set; }
     [NotMapped]
@@ -48,5 +48,24 @@ public class PizzaExtraModel()
 public class OrderRequest()
 {
     public int PizzaId { get; set; }
-    public int[] Extras { get; set;  }
+    public int[] Extras { get; set; }
+}
+
+[Table("Tbl_PizzaOrder")]
+public class PizzaOrderModel()
+{
+    [Key]
+    public int PizzaOrderId { get; set; }
+    public string PizzaOrderInoviceNo { get; set; }
+    public int PizzaId { get; set; }
+    public decimal TotalAmount { get; set; }
+}
+
+[Table("Tbl_PizzaOrderDetailModel")]
+public class PizzaOrderDetailModel()
+{
+    [Key]
+    public int PizzaOrderDetailId { get; set; }
+    public string PizzaOrderInoviceNo { get; set; }
+    public int PizzaExtraId { get; set; }
 }
