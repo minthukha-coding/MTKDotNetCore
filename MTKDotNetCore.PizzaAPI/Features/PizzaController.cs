@@ -56,7 +56,8 @@ namespace MTKDotNetCore.PizzaAPI.Features
                 PizzaOrderInoviceNo = PizzaOrderInoviceNo
             }).ToList();
 
-            await _appDbContext.AddAsync(pizzaOrderModel);
+            await _appDbContext.PizzaOrder.AddAsync(pizzaOrderModel);
+            await _appDbContext.PizzaOrderDetail.AddRangeAsync(pizzaOrderDetailsModel);
             await _appDbContext.SaveChangesAsync();
 
             OrderRespnse respnse = new OrderRespnse()
@@ -69,17 +70,17 @@ namespace MTKDotNetCore.PizzaAPI.Features
             return (Ok(respnse));
         }
 
-        //[HttpPost("Order/{invoiceNo}")]
-        //public async Task<IActionResult> Order(string invoiceNo)
-        //{
-        //    var item = await _appDbContext.PizzaOrder.FirstOrDefaultAsync(x => x.PizzaOrderInoviceNo == invoiceNo);
-        //    var lst = await _appDbContext.PizzaOrderDetail.Where(x => x.PizzaOrderInoviceNo == invoiceNo).ToListAsync();
-        //    return Ok(
-        //        new
-        //        {
-        //            Order = item,
-        //            OrderDetail = lst
-        //        });
-        //}
+        [HttpPost("Order/{invoiceNo}")]
+        public async Task<IActionResult> GetOrder(string invoiceNo)
+        {
+            var item = await _appDbContext.PizzaOrder.FirstOrDefaultAsync(x => x.PizzaOrderInoviceNo == invoiceNo);
+            var lst = await _appDbContext.PizzaOrderDetail.Where(x => x.PizzaOrderInoviceNo == invoiceNo).ToListAsync();
+            return Ok(
+                new
+                {
+                    Order = item,
+                    OrderDetail = lst
+                });
+        }
     }
 }
