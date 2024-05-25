@@ -75,20 +75,22 @@ namespace MTKDotNetCore.PizzaAPI.Features
 
         #region Get PizaOreder With EF
 
-        //[HttpGet("Order/{invoiceNo}")]
-        //public async Task<IActionResult> GetOrder(string invoiceNo)
-        //{
-        //    var item = await _appDbContext.PizzaOrder.FirstOrDefaultAsync(x => x.PizzaOrderInoviceNo == invoiceNo);
-        //    var lst = await _appDbContext.PizzaOrderDetail.Where(x => x.PizzaOrderInoviceNo == invoiceNo).ToListAsync();
-        //    return Ok(
-        //        new
-        //        {
-        //            Order = item,
-        //            OrderDetail = lst
-        //        });
-        //}
+        [HttpGet("OrderEF/{invoiceNo}")]
+        public async Task<IActionResult> GetOrderEF(string invoiceNo)
+        {
+            var item = await _appDbContext.PizzaOrder.FirstOrDefaultAsync(x => x.PizzaOrderInoviceNo == invoiceNo);
+            var lst = await _appDbContext.PizzaOrderDetail.Where(x => x.PizzaOrderInoviceNo == invoiceNo).ToListAsync();
+            return Ok(
+                new
+                {
+                    Order = item,
+                    OrderDetail = lst
+                });
+        }
 
         #endregion
+
+        #region Get PizaOreder With Query
 
         [HttpGet("Order/{invoiceNo}")]
         public IActionResult GetOrder(string invoiceNo)
@@ -112,5 +114,7 @@ namespace MTKDotNetCore.PizzaAPI.Features
             };
             return Ok(model);
         }
+
+        #endregion
     }
 }
