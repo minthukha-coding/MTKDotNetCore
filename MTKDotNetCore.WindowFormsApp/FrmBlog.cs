@@ -1,12 +1,16 @@
 using ClassLibrary1MTKDotNetCore.Shared;
+using MTKDotNetCore.WindowFormsApp.Models;
+using MTKDotNetCore.WindowFormsApp.Queries;
 
 namespace MTKDotNetCore.WindowFormsApp
 {
     public partial class FrmBlog : Form
     {
+        private readonly DapperService _dapperService;
         public FrmBlog()
         {
             InitializeComponent();
+            _dapperService = new DapperService(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
         }
 
         private void FormBlog_load(object sender, EventArgs e)
@@ -16,15 +20,36 @@ namespace MTKDotNetCore.WindowFormsApp
 
         private void txtCancel_Click(object sender, EventArgs e)
         {
-            txtBxtitle.Clear();
-            txtBxauthor.Clear();
-            txtBxcontent.Clear();
-            txtTitle.Focus();
+            ClearControl();
         }
 
         private void txtSave_Click(object sender, EventArgs e)
         {
+            try
+            {
+                BlogModel blog = new BlogModel();
+                blog.BlogTitle = txtBxtitle.Text.Trim();
+                blog.BlogAuthor = txtBxauthor.Text.Trim();
+                blog.BlogContent = txtBxcontent.Text.Trim();
 
+                int result = _dapperService.Excute(BlogQuery.BlogCreate,blog);
+                string message = result > 0 ? "Create Blog Success" : "Create Blog Fail";
+                var messageBoxIcon = result > 0 ? MessageBoxIcon.Information : MessageBoxIcon.Error;
+                MessageBox.Show(message,"Blog", MessageBoxButtons.OK,messageBoxIcon);
+                if (result > 0) ClearControl();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void ClearControl()
+        {
+            txtBxtitle.Clear();
+            txtBxauthor.Clear();
+            txtBxcontent.Clear();
+            txtBxtitle.Focus();
         }
 
         private void textBox2_TextChanged(object sender, EventArgs e)
@@ -44,7 +69,7 @@ namespace MTKDotNetCore.WindowFormsApp
 
         private void txtTitle_Click(object sender, EventArgs e)
         {
-            DapperService dapperService = new DapperService(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
+
         }
 
         //private void button1_Click(object sender, EventArgs e)
