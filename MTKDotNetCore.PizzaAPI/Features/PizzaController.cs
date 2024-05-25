@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using ClassLibrary1MTKDotNetCore.Shared;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MTKDotNetCore.PizzaAPI.Database;
@@ -10,10 +11,11 @@ namespace MTKDotNetCore.PizzaAPI.Features
     public class PizzaController : ControllerBase
     {
         private readonly AppDbContext _appDbContext;
-
+        private readonly DapperService _dapperService;
         public PizzaController()
         {
             _appDbContext = new AppDbContext();
+            _dapperService = new  DapperService(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
         }
 
         [HttpGet]
