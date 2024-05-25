@@ -97,3 +97,9 @@ public class PizzaOrderInvoiceDetailModel()
     public string PizzaExtraName { get; set; }
     public decimal Price { get; set; }
 }
+
+public class PizzaOrderInvoiceResponse()
+{
+    public PizzaOrderInvoiceHeadModel Order { get; set; }
+    public List<PizzaOrderInvoiceDetailModel> OrderDetail { get; set; }
+}
