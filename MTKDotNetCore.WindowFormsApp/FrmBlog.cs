@@ -1,3 +1,5 @@
+using ClassLibrary1MTKDotNetCore.Shared;
+
 namespace MTKDotNetCore.WindowFormsApp
 {
     public partial class FrmBlog : Form
@@ -42,7 +44,7 @@ namespace MTKDotNetCore.WindowFormsApp
 
         private void txtTitle_Click(object sender, EventArgs e)
         {
-            DapperSercie
+            DapperService dapperService = new DapperService(ConnectionString.SqlConnectionStringBuilder.ConnectionString);
         }
 
         //private void button1_Click(object sender, EventArgs e)
