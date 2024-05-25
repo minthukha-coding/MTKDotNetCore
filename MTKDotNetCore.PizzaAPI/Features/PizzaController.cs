@@ -98,13 +98,13 @@ namespace MTKDotNetCore.PizzaAPI.Features
             var item = _dapperService.QueryFirstOrDefault<PizzaOrderInvoiceHeadModel>
                 (
                     PizzaQuery.PizzaOrderQuery,
-                    new { PizzaOrderInoviaceNo = invoiceNo }
+                    new { PizzaOrderInoviceNo = invoiceNo }
                 );
 
             var lst = _dapperService.Query<PizzaOrderInvoiceDetailModel>
                 (
                     PizzaQuery.PizzaOrderDetailQuery,
-                    new { PizzaOrderInoviaceNo = invoiceNo }
+                    new { PizzaOrderInoviceNo = invoiceNo }
                 );
 
             var model = new PizzaOrderInvoiceResponse
