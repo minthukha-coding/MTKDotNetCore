@@ -19,6 +19,7 @@ public class DapperService
         var lst = db.Query<G>(query,param).ToList();
         return lst;
     }  
+
     public G QueryFirstOrDefault<G>(string query,object? param = null)
     {
         using IDbConnection db = new SqlConnection(_connectionString);
